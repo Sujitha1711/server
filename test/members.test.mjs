@@ -43,7 +43,7 @@ describe('Members', () => {
                 .post('/student/register')
                 .send({
                     name: 'Tom Doe',
-                    email: 'tom.doe@example.com',
+                    email: 'tom.doe@gmail.com', // Same email as the previous user
                     password: '12345678',
                     mobile: '1234567890',
                     course: 'Computer Science',
@@ -52,7 +52,7 @@ describe('Members', () => {
                     position: 'Sub-Com',
                     title: 'Member',
                     about: 'I am a student interested in programming.',
-                    pic: 'https://example.com/profile-pic.jpg',
+                    pic: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
                 });
 
             expect(response.status).to.equal(201);
@@ -66,7 +66,7 @@ describe('Members', () => {
                 .post('/student/register')
                 .send({
                     name: 'Another',
-                    email: 'tom.doe@example.com', // Same email as the previous user
+                    email: 'tom.doe@gmail.com', // Same email as the previous user
                     password: '12345678',
                     mobile: '9876543210',
                     course: 'Physics',
@@ -75,7 +75,7 @@ describe('Members', () => {
                     position: 'Sub-Com',
                     title: 'Member',
                     about: 'I am another user.',
-                    pic: 'https://example.com/another-profile-pic.jpg',
+                    pic: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
                 });
 
             expect(response.status).to.equal(400);
@@ -83,12 +83,12 @@ describe('Members', () => {
             expect(response.body.message).to.equal('Email already in use. Please choose a different email.');
         });
         it('should return error message if fields are empty', async () => {
-            // Attempt to register another member with the same email
+          
             const response = await request
                 .post('/student/register')
                 .send({
                     name: 'Another',
-                    email: 'doe@example.com', // Same email as the previous user
+                    email: 'doe@gmail.com', 
                     password: '12345678',
                     mobile: '',
                     course: '',
@@ -97,7 +97,7 @@ describe('Members', () => {
                     position: 'Sub-Com',
                     title: 'Member',
                     about: '',
-                    pic: 'https://example.com/another-profile-pic.jpg',
+                    pic: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
                 });
 
             expect(response.status).to.equal(400);
@@ -109,7 +109,7 @@ describe('Members', () => {
                 .post('/student/register')
                 .send({
                     name: 'Another',
-                    email: 'we@example.com',
+                    email: 'we@gmail.com',
                     password: '12',
                     mobile: '9876543210',
                     course: 'Physics',
@@ -118,7 +118,7 @@ describe('Members', () => {
                     position: 'Sub-Com',
                     title: 'Member',
                     about: 'I am another user.',
-                    pic: 'https://example.com/another-profile-pic.jpg',
+                    pic: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
                 });
 
             expect(response.status).to.equal(400);
@@ -138,7 +138,7 @@ describe('Members', () => {
             const loginResponse = await request
                 .post('/student/login')
                 .send({
-                    email: 'tom.doe@example.com',
+                    email: 'tom.doe@gmail.com',
                     password: '12345678',
                 });
 
@@ -158,7 +158,7 @@ describe('Members', () => {
             const loginResponse = await request
                 .post('/student/login')
                 .send({
-                    email: 'tom.doe@example.com',
+                    email: 'tom.doe@gmail.com',
                     password: '12345678',
                 });
 
@@ -178,7 +178,7 @@ describe('Members', () => {
             const loginResponse = await request
                 .post('/student/login')
                 .send({
-                    email: 'tom.doe@example.com',
+                    email: 'tom.doe@gmail.com',
                     password: '1234567898',
                 });
 
@@ -198,7 +198,7 @@ describe('Members', () => {
             const loginResponse = await request
                 .post('/student/login')
                 .send({
-                    email: 't@example.com',
+                    email: 't@gmail.com',
                     password: '12345678',
                 });
 
