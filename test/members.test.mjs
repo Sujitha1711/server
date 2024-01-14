@@ -393,7 +393,7 @@ describe('Members', () => {
     describe('Delete Member', () => {
         it('should delete a member by ID', async () => {
             // Assuming you already have some members in your collection
-            const memberIdToDelete = '659d59fa44f8803117a31a3d';
+            const memberIdToDelete = '65a3c8d2456e6b3521427e8b';
             // Make a request to the endpoint that deletes a member by ID
             const response = await request.delete(`/student/${memberIdToDelete}`);
 
@@ -405,14 +405,14 @@ describe('Members', () => {
             expect(response.body).to.be.an('object');
             expect(response.body.message).to.equal('Member deleted successfully.');
 
-            // Optionally, you can perform additional checks like verifying if the member is no longer in the database
+        
             // const deletedMember = await db.collection('members').findOne({ _id: new ObjectId(memberIdToDelete) });
             // expect(deletedMember).to.be.null; // Assuming a deleted member should not be found in the database
         });
 
         it('should handle deletion of non-existing member', async () => {
             // Assuming the member ID below does not exist in your collection
-            const nonExistingMemberId = '659d59239c00a12a8b18a621'; // Replace with a non-existing member ID
+            const nonExistingMemberId = '659d59239c00a12a8b18a621';
             const response = await request.delete(`/student/${nonExistingMemberId}`);
 
             // Assertions for the response when trying to delete a non-existing member

@@ -132,16 +132,16 @@ router.post("/login", async (req, res) => {
             subject: 'Login OTP',
             text: `Your OTP for login is: ${otp}. Your otp will expire in 30 secs.`,
         };
-        // transporter.sendMail(mailOptions, (error, info) => {
-        //     if (error) {
-        //         console.error('Error sending email:', eFrror);
-        //         return res.status(500).json({ message: 'Error sending OTP email.' });
-        //     }
-        //     console.log('Email sent:', info.response);
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.error('Error sending email:', eFrror);
+                return res.status(500).json({ message: 'Error sending OTP email.' });
+            }
+            console.log('Email sent:', info.response);
 
-        //     // Return a response to the client indicating that the OTP has been sent
-        //     res.status(200).json({ message: 'OTP sent to your email for verification.' });
-        // });
+            // Return a response to the client indicating that the OTP has been sent
+            res.status(200).json({ message: 'OTP sent to your email for verification.' });
+        });
         // Send the response with the generated OTP
         res.status(200).json({ message: 'OTP sent to your email for verification.', otp });
     } catch (error) {
@@ -249,16 +249,16 @@ router.post("/resend", async (req, res) => {
             text: `Your new OTP for login is: ${otp}. Your otp will expire in 30 secs.`,
         };
 
-        // transporter.sendMail(mailOptions, (error, info) => {
-        //     if (error) {
-        //         console.error('Error sending email:', error);
-        //         return res.status(500).json({ message: 'Error sending OTP email.' });
-        //     }
-        //     console.log('Email sent:', info.response);
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.error('Error sending email:', error);
+                return res.status(500).json({ message: 'Error sending OTP email.' });
+            }
+            console.log('Email sent:', info.response);
 
-        //     // Return a response to the client indicating that the new OTP has been sent
-        //     res.status(200).json({ message: 'New OTP sent to your email for verification.' });
-        // });
+            // Return a response to the client indicating that the new OTP has been sent
+            res.status(200).json({ message: 'New OTP sent to your email for verification.' });
+        });
         res.status(200).json({ message: 'New OTP sent to your email for verification.' });
     } catch (error) {
         console.error('Error resending OTP:', error);

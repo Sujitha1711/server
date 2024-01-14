@@ -301,7 +301,7 @@ describe('admin', () => {
     
         it('should delete member', async function () {
             // Assume you have a member ID for testing, replace 'your_member_id' with an actual member ID
-            const memberId = '65a0bcdcccfe93fa78023015';
+            const memberId = '65a3c90c13edeebfe1553b00';
     
             // Perform the delete request with the JWT token for authentication
             const deleteResponse = await request
