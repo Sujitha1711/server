@@ -516,4 +516,3 @@ router.post("/join-event/:memberId/:eventId", async (req, res) => {
 
 
 export default router;
-

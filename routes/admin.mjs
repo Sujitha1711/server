@@ -3,7 +3,7 @@ import db from "../db/conn.mjs";
 import { ObjectId } from "mongodb";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import generateOTP from 'generate-otp';
+//import generateOTP from 'generate-otp';
 import transporter from '../middleware/nodemailerConfig.mjs';
 import { requireAuth } from '../middleware/middleware.mjs';
 
@@ -32,65 +32,6 @@ router.get("/admin-only", requireAuth(["admin"]), (req, res) => {
 
 
 const generateOtp = () => Math.floor(100000 + Math.random() * 900000).toString();
-
-// router.post("/login", async (req, res) => {
-//     try {
-//         const { email, password } = req.body;
-
-//         // Select the collection
-//         const collection = db.collection('admin');
-
-//         // Check if the user exists in the database
-//         const admin = await collection.findOne({ email });
-
-//         if (!admin || !(await bcrypt.compare(password, admin.password))) {
-//             return res.status(401).json({ message: 'Invalid email or password.' });
-//         }
-
-//         // Check if the user has an existing OTP and if it's still valid
-//         const currentTime = new Date().getTime();
-//         const otpExpirationTime = admin.otpExpirationTime || 0;
-
-//         if (otpExpirationTime > currentTime) {
-//             return res.status(400).json({ message: 'Existing OTP is still valid. Wait for it to expire.' });
-//         }
-
-//         // Generate a new OTP and set the expiration time (30 seconds)
-//         const otp = generateOtp();
-//         const expirationTime = currentTime + 30 * 1000; // 30 seconds in milliseconds
-
-//         // Save the generated OTP and its expiration time to the user's document in the database
-//         await collection.updateOne(
-//             { _id: new ObjectId(admin._id) },
-//             { $set: { otp, otpExpirationTime: expirationTime } }
-//         );
-
-//         console.log('Generated OTP:', otp);
-
-//         // Send OTP to the user's email using the transporter from nodemailerConfig.mjs
-//         const mailOptions = {
-//             from: 'vibehub_TP@gmail.com',
-//             to: admin.email,
-//             subject: 'Login OTP',
-//             text: `Your OTP for login is: ${otp}. Your otp will expire in 30 secs.`,
-//         };
-
-//         // transporter.sendMail(mailOptions, (error, info) => {
-//         //     if (error) {
-//         //         console.error('Error sending email:', error);
-//         //         return res.status(500).json({ message: 'Error sending OTP email.' });
-//         //     }
-//         //     console.log('Email sent:', info.response);
-
-//         //     // Return a response to the client indicating that the OTP has been sent
-//         //     res.status(200).json({ message: 'OTP sent to your email for verification.' });
-//         // });
-//         res.status(200).json({ message: 'OTP sent to your email for verification.' });
-//     } catch (error) {
-//         console.error('Error logging in:', error);
-//         res.status(500).send('Internal Server Error');
-//     }
-// });
 router.post("/login", async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -134,7 +75,7 @@ router.post("/login", async (req, res) => {
         };
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
-                console.error('Error sending email:', eFrror);
+                console.error('Error sending email:', error);
                 return res.status(500).json({ message: 'Error sending OTP email.' });
             }
             console.log('Email sent:', info.response);
@@ -331,45 +272,5 @@ router.get("/:id", async (req, res) => {
         res.status(500).json({ message: "Internal Server Error" });
     }
 });
-
-
-
-// // Get members who joined a specific event - No authentication for simplicity
-// router.get("/joined-members/:eventId", requireAuth(["admin"]), async (req, res) => {
-//     try {
-//         const eventId = new ObjectId(req.params.eventId);
-
-//         // Check if the event exists
-//         const eventCollection = await db.collection("events");
-//         const event = await eventCollection.findOne({ _id: eventId });
-
-//         if (!event) {
-//             return res.status(404).json({ message: "Event not found." });
-//         }
-
-//         // Query the "myevents" collection to get members who joined the event
-//         const myeventsCollection = await db.collection("myevents");
-//         const joinedMembers = await myeventsCollection
-//             .find({ eventId })
-//             .toArray();
-
-//         if (joinedMembers.length === 0) {
-//             return res.status(404).json({ message: "No members joined this event yet." });
-//         }
-
-//         // Get member details from the "members" collection
-//         const memberIds = joinedMembers.map((relation) => new ObjectId(relation.memberId));
-//         const memberCollection = await db.collection("members");
-//         const members = await memberCollection
-//             .find({ _id: { $in: memberIds } })
-//             .toArray();
-
-//         res.status(200).json({ members });
-//     } catch (error) {
-//         console.error("Error fetching joined members:", error);
-//         res.status(500).json({ message: "Internal Server Error" });
-//     }
-// });
-
 
 export default router;

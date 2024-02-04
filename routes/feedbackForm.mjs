@@ -5,7 +5,6 @@ import { requireAuth } from '../middleware/middleware2.mjs';
 import transporter from '../middleware/nodemailerConfig.mjs';
 
 
-
 const router = express.Router();
 
 // Add a feedback 
@@ -18,7 +17,7 @@ router.post("/add", requireAuth(["Student"]), async (req, res) => {
             return res.status(400).json({ message: "All fields are required." });
         }
 
-        const senderEmail = req.userEmail; // Use req.userEmail instead of decodedToken.email
+        const senderEmail = req.userEmail; 
         console.log('Sender email:', senderEmail);
 
         // Get the current date in ISO format
@@ -28,7 +27,6 @@ router.post("/add", requireAuth(["Student"]), async (req, res) => {
         // Insert the new feedback into the database along with the current date
         const collection = await db.collection("feedbacks");
         const result = await collection.insertOne({ topic, feedback, date: formattedDate });
-
         // Send a thank-you email to the sender
         await sendThankYouEmail(senderEmail);
 
@@ -41,7 +39,7 @@ router.post("/add", requireAuth(["Student"]), async (req, res) => {
 
 
 
-const sendThankYouEmail = async (senderEmail) => {
+export const sendThankYouEmail = async (senderEmail) => {
     try {
         const mailOptions = {
             from: 'VibeHub_TP@gmail.com',
@@ -69,23 +67,4 @@ router.get("/", async (req, res) => {
     }
 });
 
-// Delete feedback by id
-// router.delete("/:id", async (req, res) => {
-//     try {
-//         const feedbackID = req.params.id;
-//         const query = { _id: new ObjectId(feedbackID) };
-
-//         const collection = db.collection("feedbacks");
-//         const result = await collection.deleteOne(query);
-
-//         if (result.deletedCount === 1) {
-//             res.status(200).json({ message: "Feedback deleted successfully." });
-//         } else {
-//             res.status(404).json({ message: "Feedback not found." });
-//         }
-//     } catch (error) {
-//         console.error("Error deleting feedback:", error);
-//         res.status(500).json({ message: "Internal Server Error" });
-//     }
-// });
 export default router;

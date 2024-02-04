@@ -201,6 +201,7 @@ router.get("/view-member-participation/:memberId", async (req, res) => {
 
 // Get members who joined a specific event - No authentication for simplicity
 router.get("/joined-members/:eventId", requireAuth(["admin"]), async (req, res) => {
+    
     try {
         const eventId = new ObjectId(req.params.eventId);
 

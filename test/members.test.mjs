@@ -34,7 +34,9 @@ describe('Members', () => {
 
     after(async () => {
         // Stop the in-memory MongoDB server
-        await mongoMemoryServer.stop();
+        if (mongoMemoryServer) {
+            await mongoMemoryServer.stop();
+        }
     });
 
     describe('Register New Member', () => {
@@ -308,7 +310,7 @@ describe('Members', () => {
                 .patch(`/student/${userId}`)
                 .send({
                     name: 'Jenny23',
-                    email: 'jennyrd2005@gmail.com',
+                    email: 'jennyrd20052@gmail.com',
                     mobile: '1234567890',
                     year: '3',
                     about: 'Updated about section',
@@ -338,7 +340,7 @@ describe('Members', () => {
                 .patch(`/student/${userId}`)
                 .send({
                     name: 'Jenny23',
-                    email: 'jennyrd2005@gmail.com',
+                    email: 'jennyrd20052@gmail.com',
                     mobile: '1234567890',
                     year: '3',
                     about: 'Updated about section',
@@ -393,7 +395,7 @@ describe('Members', () => {
     describe('Delete Member', () => {
         it('should delete a member by ID', async () => {
             // Assuming you already have some members in your collection
-            const memberIdToDelete = '65a3c8d2456e6b3521427e8b';
+            const memberIdToDelete = '65bf6c380d4f6526993ed398';
             // Make a request to the endpoint that deletes a member by ID
             const response = await request.delete(`/student/${memberIdToDelete}`);
 
@@ -424,4 +426,3 @@ describe('Members', () => {
 
 
 });
-
