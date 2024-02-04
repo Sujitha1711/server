@@ -302,7 +302,7 @@ describe('Admin Side Functions', () => {
         });
 
         it('should delete member', async function () {
-            const memberId = '65bf6c110d4f6526993ed396';
+            const memberId = '65bf6da0950c94691c200195';
 
             // Perform the delete request with the JWT token for authentication
             const deleteResponse = await request

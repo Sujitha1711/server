@@ -395,7 +395,7 @@ describe('Members', () => {
     describe('Delete Member', () => {
         it('should delete a member by ID', async () => {
             // Assuming you already have some members in your collection
-            const memberIdToDelete = '65bf6c380d4f6526993ed398';
+            const memberIdToDelete = '65bf6de20d4f6526993ed399';
             // Make a request to the endpoint that deletes a member by ID
             const response = await request.delete(`/student/${memberIdToDelete}`);
 
