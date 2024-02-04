@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node server.mjs",
     "test": "npx c8 mocha --all --config ./c8.config.js --reporter=spec && npx nyc report --reporter=html"
   },
   "keywords": [],
