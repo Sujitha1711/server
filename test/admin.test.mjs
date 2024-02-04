@@ -302,7 +302,6 @@ describe('Admin Side Functions', () => {
         });
 
         it('should delete member', async function () {
-            // Assume you have a member ID for testing, replace 'your_member_id' with an actual member ID
             const memberId = '65bf6c110d4f6526993ed396';
 
             // Perform the delete request with the JWT token for authentication
@@ -316,62 +315,8 @@ describe('Admin Side Functions', () => {
 
             // Ensure that the member is actually deleted from the database
             const deletedMember = await db.collection('members').findOne({ _id: new ObjectId(memberId) });
-            expect(deletedMember).to.be.null; // Expecting the member to be null, indicating it's not found in the database
+            expect(deletedMember).to.be.null; 
         });
     });
-    // describe('Notification', () => {
-    //     let jwtToken; // Store the JWT token for authenticated requests
-
-    //     beforeEach(async () => {
-    //         // Perform login to get the JWT token
-    //         const loginResponse = await request
-    //             .post('/admin/login')
-    //             .send({
-    //                 email: 'suji.palani45@gmail.com',
-    //                 password: '12345678@',
-    //             });
-
-    //         // Extract the generated OTP from the login response
-    //         const generatedOTP = loginResponse.body.otp;
-
-    //         // Simulate OTP verification to get the JWT token
-    //         const verifyResponse = await request
-    //             .post('/admin/verify')
-    //             .send({
-    //                 email: 'suji.palani45@gmail.com',
-    //                 password: '12345678@',
-    //                 otp: generatedOTP,
-    //             });
-
-    //         // Extract the JWT token from the verify response
-    //         jwtToken = verifyResponse.body.token;
-    //     });
-
-    //     // Test case for updating a member
-    //     it('should send notification', async function () {
-    //         // Assume you have a member ID for testing, replace 'your_member_id' with an actual member ID
-
-    //         // Perform the update request with the JWT token for authentication
-    //         const addResponse = await request
-    //             .post(`/notification/add`)
-    //             .set('Authorization', `Bearer ${jwtToken}`)
-    //             .send({
-    //                 title: 'Test adding notification',
-    //                 notification: 'notification testing',
-    //             });
-
-    //         // Ensure the notification is added successfully
-    //         expect(addResponse.status).to.equal(201);
-    //         expect(addResponse.body.message).to.equal('notification added successfully.');
-
-    //     });
-    //     it('should get all notifications', async function () {
-    //         const getResponse = await request
-    //           .get('/notification')
-        
-    //         expect(getResponse.status).to.equal(200);
-    //         expect(getResponse.body).to.be.an('array');
-    //       });
-    // });
 });
 
